@@ -1,0 +1,52 @@
+<ng-template #personTemplate>
+  <h1>List of all the employees</h1>
+    <div class="table-list-person" style="width: 780px;">
+      <input type="text" [(ngModel)]="searchTerm" />
+      <div *ngIf="persons.length > 0">
+        <table class="table">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Matricule</th>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Address</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let person of persons | filter:searchTerm">
+                <td>
+                  <input type="checkbox" [(ngModel)]="person.isChecked"/>
+                </td>
+                <td *ngIf="!person.editMode">{{ person.id }}</td>
+                <td *ngIf="person.editMode">
+                  <input type="text" [(ngModel)]="person.id" (blur)="updatePerson(person)" />
+                </td>
+                <td *ngIf="!person.editMode">{{ person.name }}</td>
+                <td *ngIf="person.editMode">
+                  <input type="text" [(ngModel)]="person.name" (blur)="updatePerson(person)" />
+                </td>
+                <td *ngIf="!person.editMode">{{ person.age }}</td>
+                <td *ngIf="person.editMode">
+                  <input type="text" [(ngModel)]="person.age" (blur)="updatePerson(person)" />
+                </td>
+                <td *ngIf="!person.editMode">{{ person.address }}</td>
+                <td *ngIf="person.editMode">
+                  <input type="text" [(ngModel)]="person.address" (blur)="updatePerson(person)" />
+                </td>
+                <td>
+                  <button *ngIf="!person.editMode" (click)="person.editMode = true">Edit</button>
+                  <button *ngIf="person.editMode" (click)="person.editMode = false">Save</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div *ngIf="persons.length === 0">
+          No items found.
+        </div>
+        <button class="btn btn-danger" (click)="deleteChecked()">Delete</button>
+      </div>
+  </ng-template>
+  
+  <ng-container *ngTemplateOutlet="personTemplate"></ng-container>
