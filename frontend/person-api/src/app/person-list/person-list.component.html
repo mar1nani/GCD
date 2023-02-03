@@ -1,16 +1,19 @@
 <ng-template #personTemplate>
-  <h1>List of all the employees</h1>
-    <div class="table-list-person" style="width: 780px;">
-      <input type="text" [(ngModel)]="searchTerm" />
+  <h1>Liste des patients</h1>
+    <div class="table-list-person" style="width: 100%;">
+      <div class="input-group" style="width: 300px; margin-bottom: 50px; margin-top: 50px;">
+        <input type="search" [(ngModel)]="searchTerm"  class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+        <button disabled type="button" class="btn btn-outline-primary">search</button>
+      </div>
       <div *ngIf="persons.length > 0">
-        <table class="table">
+        <table class="table" id="datatable" style="width: 780px;">
             <thead>
               <tr>
                 <th></th>
-                <th>Matricule</th>
-                <th>Name</th>
-                <th>Age</th>
-                <th>Address</th>
+                <th>Nom</th>
+                <th>Date de naissance</th>
+                <th>Genre</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
@@ -18,25 +21,21 @@
                 <td>
                   <input type="checkbox" [(ngModel)]="person.isChecked"/>
                 </td>
-                <td *ngIf="!person.editMode">{{ person.id }}</td>
-                <td *ngIf="person.editMode">
-                  <input type="text" [(ngModel)]="person.id" (blur)="updatePerson(person)" />
-                </td>
                 <td *ngIf="!person.editMode">{{ person.name }}</td>
                 <td *ngIf="person.editMode">
                   <input type="text" [(ngModel)]="person.name" (blur)="updatePerson(person)" />
                 </td>
-                <td *ngIf="!person.editMode">{{ person.age }}</td>
+                <td *ngIf="!person.editMode">{{ person.dob }}</td>
                 <td *ngIf="person.editMode">
-                  <input type="text" [(ngModel)]="person.age" (blur)="updatePerson(person)" />
+                  <input type="text" [(ngModel)]="person.dob" (blur)="updatePerson(person)" />
                 </td>
-                <td *ngIf="!person.editMode">{{ person.address }}</td>
+                <td *ngIf="!person.editMode">{{ person.gender }}</td>
                 <td *ngIf="person.editMode">
-                  <input type="text" [(ngModel)]="person.address" (blur)="updatePerson(person)" />
+                  <input type="text" [(ngModel)]="person.gender" (blur)="updatePerson(person)" />
                 </td>
                 <td>
-                  <button *ngIf="!person.editMode" (click)="person.editMode = true">Edit</button>
-                  <button *ngIf="person.editMode" (click)="person.editMode = false">Save</button>
+                  <button class="btn btn-secondary" *ngIf="!person.editMode" (click)="person.editMode = true">Edit</button>
+                  <button class="btn btn-primary" *ngIf="person.editMode" (click)="person.editMode = false">Save</button>
                 </td>
               </tr>
             </tbody>

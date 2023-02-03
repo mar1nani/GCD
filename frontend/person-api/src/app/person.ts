@@ -1,17 +1,26 @@
 export class Person {
     id: number;
     name: string;
-    age: number;
+    dob: string;
     address: string;
+    gender:string;
+    phoneNumber: string;
+    ville: string;
+    healthState:string;
+    
     isChecked: boolean = false;
     editMode: boolean = false;
 
   
-    constructor(id = 0, name = '', age = 0, address = '') {
+    constructor(id = 0, name = '', dob = '', address = '', gender = '', phoneNumber = '', ville = '', healthState = '') {
       this.id = id;
       this.name = name;
-      this.age = age;
+      this.dob = dob;
       this.address = address;
+      this.phoneNumber = phoneNumber;
+      this.gender = gender;
+      this.ville = ville;
+      this.healthState = healthState;
     }
   }
   

@@ -1,21 +1,57 @@
-<form [formGroup]="personForm" (ngSubmit)="onSubmit()" class="row g-2"> 
-    <div class="form-group col-md-2">
-        <label for="name" class="form-label">First name</label>
-    <input type="text" class="form-control" [ngClass]="{'is-invalid': personForm.controls['name'].invalid && personForm.controls['name'].touched}" id="name" formControlName="name">
-    <div *ngIf="personForm.controls['name'].invalid && personForm.controls['name'].touched" class="invalid-feedback">
-    Name is required
-    </div>
-    </div>
-    <div class="form-group col-md-1">
-        <label for="age" class="form-label">Age</label>
-        <input type="number" class="form-control" id="age" formControlName="age">
-    </div>
-    <div class="form-group col-md-3">
-        <label for="address" class="form-label">Address</label>
-    <input type="text" class="form-control" id="address" formControlName="address">
-    </div>
-    <div class="col-12">
-        <button type="submit" class="btn btn-success"  [disabled]="personForm.invalid">Save</button>
-    </div>
-</form>
+<div class="div-form-add-person">
+    <form [formGroup]="personForm" (ngSubmit)="onSubmit()" class="row p-4"> 
+        <div class="form-group col-md-5">
+            <label for="name" class="form-label">Nom complet</label>
+            <input type="text" placeholder="Nom et prénom" class="form-control" [ngClass]="{'is-invalid': personForm.controls['name'].invalid && personForm.controls['name'].touched}" id="name" formControlName="name">
+            <div *ngIf="personForm.controls['name'].invalid && personForm.controls['name'].touched" class="invalid-feedback">
+                Ce champ est obligatoire
+            </div>
+        </div>
+        <div class="form-group col-md-4">
+            <label for="dob">Date de naissance</label>
+            <div class="input-group">
+              <input type="text" autocomplete="off" class="form-control" placeholder="Date de naissance" name="dob" id="dob">
+              <div class="input-group-append">
+                <span class="input-group-text">
+                  <i class="fa fa-calendar"></i>
+                </span>
+              </div>
+            </div>
+        </div>
+        <div class="form-group col-md-3">
+            <label for="genre" class="form-label">Genre</label>
+            <select class="form-select" 
+                    formControlName="gender"
+                    id="genre">
+                <option [ngValue]="null" disabled>Choisir</option>
+                <option *ngFor="let gender of genderOptions" [ngValue]="gender.value">{{ gender.displayValue }}</option>
+            </select>
+        </div>
+        <div class="form-group col-md-3">
+            <label for="phoneNumber" class="form-label">Téléphone (Optionnel)</label>
+            <input type="text" placeholder="Numéro de tél" class="form-control" [ngClass]="{'is-invalid': personForm.controls['phoneNumber'].invalid && personForm.controls['phoneNumber'].touched}" id="phoneNumber" formControlName="phoneNumber">
+            <div *ngIf="personForm.controls['phoneNumber'].invalid && personForm.controls['phoneNumber'].touched" class="invalid-feedback">
+                Ce champ est obligatoire
+           </div>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="address" class="form-label">Adresse postale (Optionnel)</label>
+            <input type="text" placeholder="Adresse postale" class="form-control"  formControlName="address">
+        </div>
+        <div class="form-group col-md-3">
+            <label for="ville" class="form-label">Ville (Optionnel)</label>
+            <input type="text" placeholder="Ville" class="form-control"  id="ville" formControlName="ville">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="healthState" class="form-label">État de santé</label>
+            <textarea type="text" placeholder="Renseigner l'état de santé du patient" class="form-control"  id="healthState" formControlName="healthState">
+            
+            </textarea>
+        </div>
+          
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary" [disabled]="personForm.invalid">Enregistrer</button>
+        </div>
+    </form>
+</div>
 

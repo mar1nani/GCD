@@ -8,7 +8,9 @@ import { AppComponent } from './app.component';
 import { PersonListComponent } from './person-list/person-list.component';
 import { AddPersonComponent } from './add-person/add-person.component';
 import { NgxPaginationModule } from 'ngx-pagination';
-
+import { NavbarComponent } from './navbar/navbar.component';
+import { FooterComponent } from './footer/footer.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -16,7 +18,9 @@ import { NgxPaginationModule } from 'ngx-pagination';
     AppComponent,
     PersonListComponent,
     AddPersonComponent,
-    FilterPipe
+    FilterPipe,
+    NavbarComponent,
+    FooterComponent
   ],
   imports: [
     ReactiveFormsModule,
@@ -24,7 +28,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
