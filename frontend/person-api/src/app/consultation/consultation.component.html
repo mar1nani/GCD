@@ -1,0 +1,62 @@
+<ngb-toast *ngIf="showSuccessToast" header="Consultation ajoutée avec succès" [class]="'bg-success text-white'" (hide)="showSuccessToast = false">
+    <span>Aller vers la liste des consultations</span>
+    <a class="ml-3" (click)="goToConsultationList()" style="color: white;">
+      <i class="fa fa-arrow-right"></i>
+    </a>
+</ngb-toast>
+
+<div class="div-form-consultation">
+    <form [formGroup]="consultationForm" (ngSubmit)="onSubmit()" class="row p-4"> 
+        <div class="form-group col-md-5">
+            <label for="context" class="form-label">Acte à effectuer</label>
+            <input type="text" placeholder="Insérer l'acte à effectuer" class="form-control" [ngClass]="{'is-invalid': consultationForm.controls['context'].invalid && consultationForm.controls['context'].touched}" id="context" formControlName="context">
+            <div *ngIf="consultationForm.controls['context'].invalid && consultationForm.controls['context'].touched" class="invalid-feedback">
+                Ce champ est obligatoire
+            </div>
+        </div>
+        <div class="form-group col-md-4">
+            <label for="date_consultation">Date de consultation</label>
+            <div class="input-group">
+              <input type="text" autocomplete="off" class="form-control" formControlName="date_consultation" placeholder="Date de consultation" id="date_consultation">
+              <div class="input-group-append">
+                <span class="input-group-text">
+                  <i class="fa fa-calendar"></i>
+                </span>
+              </div>
+            </div>
+        </div>
+        <div class="form-group col-md-3">
+            <label for="status" class="form-label">État</label>
+            <select class="form-select" 
+                    formControlName="status"
+                    id="status">
+                <option [ngValue]="null" disabled>Choisir</option>
+                <option *ngFor="let status of statusOptions" [ngValue]="status.value">{{ status.displayValue }}</option>
+            </select>
+        </div>
+        <div class="form-group col-md-2">
+            <label for="consultation_count" class="form-label">Séances</label>
+            <input type="number" min="0" stap="1" placeholder="Séances" class="form-control" [ngClass]="{'is-invalid': consultationForm.controls['consultation_count'].invalid && consultationForm.controls['consultation_count'].touched}" id="consultation_count" formControlName="consultation_count" id="consultation_count">
+            <div *ngIf="consultationForm.controls['consultation_count'].invalid && consultationForm.controls['consultation_count'].touched" class="invalid-feedback">
+                Ce champ est obligatoire
+            </div>
+        </div>
+        <div class="form-group col-md-2">
+            <label for="price" class="form-label">Prix</label>
+            <input type="number" min="0" step="1" placeholder="Prix" class="form-control"  formControlName="price" id="price">
+        </div>
+        <div class="form-group col-md-5">
+            <label for="personId" class="form-label">Patient</label>
+            <select class="form-select" formControlName="personId" id="personId">
+                <option [ngValue]="null" disabled>Choisir le patient</option>
+                <option *ngFor="let person of persons$ | async" [ngValue]="person.id">{{ person.name }}</option>
+            </select>
+        </div>
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary" [disabled]="consultationForm.invalid">Enregistrer</button>
+        </div>
+    </form>
+</div>
+
+  
+

@@ -1,0 +1,31 @@
+<!-- Add Payment Modal -->
+<div class="modal fade" id="addPaymentModal" tabindex="-1" role="dialog" aria-labelledby="addPaymentModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addPaymentModalLabel">Ajouter un paiement</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Fermer">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form #paymentForm="ngForm">
+              <div class="form-group">
+                <label for="paymentAmount">Montant du paiement:</label>
+                <input type="number" min="1" class="form-control" id="paymentAmount" name="paymentAmount" placeholder="Entrez le montant du paiement" required [(ngModel)]="paymentAmount">
+              </div>
+              <div class="form-group">
+                <label for="paymentDate">Date du paiement:</label>
+                <input type="date" class="form-control" id="paymentDate" name="paymentDate" required [(ngModel)]="paymentDate" [min]="currentDate()">
+              </div>
+            </form>
+          </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+          <button type="button" class="btn btn-primary" (click)="onSubmit()">Enregistrer le paiement</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+ 

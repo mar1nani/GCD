@@ -1,0 +1,21 @@
+.div-form-add-person {
+    border: solid #dee2e6;
+    border-width: 1px;
+    width: 800px;
+}
+.form-group {
+    margin-bottom: 1rem;
+  }
+  
+  .input-group {
+    width: 100%;
+  }
+  
+  .btn {
+    cursor: pointer;
+  }
+  
+  .fa-calendar {
+    font-size: 1.2em;
+  }
+  

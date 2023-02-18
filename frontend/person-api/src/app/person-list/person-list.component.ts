@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { PersonService } from '.././person.service';
 import { Person } from '.././person';
-import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-person-list',
@@ -11,22 +12,29 @@ import { Observable } from 'rxjs';
 
 export class PersonListComponent implements OnInit{
   persons: Person[] = [];
-  //persons$: Observable<Person[]>;
-  searchTerm: string;
- 
+  searchTerm: string = '';
 
-
-  constructor(private personService: PersonService) {
-    //this.persons$ = this.personService.getAllPersons(this.p, 5);
-    this.searchTerm = '';
-   }
+  constructor(private personService: PersonService, private http: HttpClient, private router: Router) {}
 
   ngOnInit() {
-    this.loadData();
+    //this.loadData();
   }
-  search() {
-    // filter persons list based on searchTerm
+
+  openSuivi(id: number) {
+    this.router.navigate(['/suivi', id]);
   }
+
+  search(): void {
+    this.personService.searchPersonsByName(this.searchTerm).subscribe(
+      data => {
+        this.persons = data;
+      },
+      error => {
+        console.error(error);
+      }
+    );
+  }
+
   updatePerson(person: Person) {
     this.personService.updatePerson(person)
       .subscribe(
@@ -40,28 +48,27 @@ export class PersonListComponent implements OnInit{
         }
       );
   }
+
+  hasChecked(): boolean {
+    return this.persons.some((person: any) => person.isChecked);
+  }
   deleteChecked() {
-    const checkedPersons = this.persons.filter(person => person.isChecked);
-    checkedPersons.forEach(person => {
+    this.persons.filter(person => person.isChecked).forEach(person => {
       this.personService.deletePersonById(person.id).subscribe(
-        response => {
-          console.log(response);
-          this.loadData();
+        () => {
+          this.persons = this.persons.filter(p => p.id !== person.id);
         },
-        error => {
-          console.error(error);
-          this.loadData();
-        }
+        error => console.error(error)
       );
     });
   }
-
+  
   loadData() {
-    this.personService.getAllPersons()
-      .subscribe(
-        persons => this.persons = persons,
-        error => console.error(error)
-      );
+    this.personService.getAllPersons().subscribe({
+      next: persons => this.persons = persons,
+      error: error => console.error(error)
+    });
   }
+
 
 }

@@ -1,0 +1,77 @@
+
+<div class="row g-3 align-items-center">
+  <div class="col-auto">
+    <label for="date_consultation">Date de consultation</label>
+  </div>
+  <div class="col-auto">
+    <div class="input-group">
+      <input type="search" id="date-search" [(ngModel)]="dateSearch" (ngModelChange)="filterConsultations()" class="form-control rounded" placeholder="Date de consultation" aria-label="date"/>
+      <div class="input-group-prepend">
+        <span class="input-group-text">
+          <i class="fa fa-search"></i>
+        </span>
+      </div>
+    </div>
+  </div>  
+</div>
+
+  <table class="table table-striped mt-3">
+    <thead class="">
+      <tr>
+        <th>Date rendez-vous</th>
+        <th>Acte à effectuer</th>
+        <th>Montant</th>
+        <th>État</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let consultation of filteredConsultations | slice: pageEvent.pageIndex * pageEvent.pageSize : (pageEvent.pageIndex + 1) * pageEvent.pageSize">
+        <tr (click)="toggleDetails(consultation)" class="table-row">       
+          <td>{{consultation.date_consultation}}</td>
+          <td>{{consultation.context}}</td>
+          <td>{{consultation.price}} €</td>
+          <td>
+            <span *ngIf="consultation.status; else completed">
+              <i class="fa fa-circle" style="color: green"></i> En cours
+            </span>
+            <ng-template #completed>
+              <i class="fa fa-circle" style="color: red"></i> Terminé
+            </ng-template>
+          </td> 
+          <td>
+            <a (click)="deleteConsultationById(consultation.id); $event.stopPropagation()">
+              <i class="fas fa-times"></i> 
+            </a>
+          </td>       
+        </tr>
+        <tr *ngIf="consultation.showDetails">
+          <td colspan="6">
+            <table class="table" >
+              <thead class="thead-bg">
+                <tr>
+                  <th>Nom / Prénom</th>
+                  <th>Genre</th>
+                  <th>Date de naissance</th>
+                  <th>Téléphone</th>
+                </tr>
+              </thead>
+              <tbody class="tbody-bg" >
+                <tr>
+                  <td>{{consultation.person.name}}</td>
+                  <td>{{consultation.person.gender === 'MALE' ? 'Homme' : 'Femme' }}</td>
+                  <td>{{consultation.person.dob}}</td>
+                  <td>{{consultation.person.phoneNumber}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+  <div class="custom-paginator-container">
+    <mat-paginator [length]="filteredConsultations.length" [pageSize]="10" (page)="pageEvent = $event"></mat-paginator>
+  </div>
+  
+

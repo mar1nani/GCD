@@ -1,0 +1,11 @@
+.table-consultation  {
+    text-align: left;
+}
+.table-striped>tbody>tr:nth-of-type(odd)>* {
+    --bs-table-accent-bg: #e3f2fd;
+}
+
+/* *:note(.fa){
+    font-family: 'Roboto', sans-serif;
+    font-weight: 100;
+} */

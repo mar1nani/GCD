@@ -11,24 +11,27 @@ import { tap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class PersonService {
-  private apiUrl = 'http://localhost:8080/person/';
-  private addPersonUrl = 'http://localhost:8080/person';
-  private deleteUrl = 'http://localhost:8080/person/';
-  private updateUrl= 'http://localhost:8080/person/';
+  private apiUrl = 'http://localhost:8080/api/person';
+  private addPersonUrl = 'http://localhost:8080/api/person';
+  private deleteUrl = 'http://localhost:8080/api/person/';
+  private updateUrl= 'http://localhost:8080/api/person';
+  private searchUrl= 'http://localhost:8080/api/person/persons';
 
   persons: Person[] = [];
-
 
   constructor(private http: HttpClient, private router: Router) { }
 
   getAllPersons(): Observable<Person[]> {
     return this.http.get<Person[]>(this.apiUrl);
   }
+  findById(id: number): Observable<Person> {
+    return this.http.get<Person>(`${this.apiUrl}/${id}`);
+  }
   createPerson(person: Person): Observable<Person> {
     return this.http.post<Person>(`${this.addPersonUrl}`, person);
   }
   updatePerson(person: Person): Observable<Person> {
-    return this.http.put<Person>(`${this.updateUrl}${person.id}`, person);
+    return this.http.put<Person>(`${this.updateUrl}`, person);
   }  
   deletePersonById(id: number) {  
     return this.http.delete(`${this.deleteUrl}${id}`).pipe(
@@ -37,5 +40,9 @@ export class PersonService {
       })
     );
   } 
+  searchPersonsByName(name: string): Observable<any> {
+    const url = `${this.searchUrl}?name=${name}`;
+    return this.http.get(url);
+  }
   
 }
