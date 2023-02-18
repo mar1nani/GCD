@@ -7,11 +7,23 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarText">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="/person-list" routerLinkActive="active">LISTE PATIENTS</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Patients
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" routerLink="/person-list" routerLinkActive="active">Liste de Patients</a>
+                        <a class="dropdown-item" routerLink="/add-person" routerLinkActive="active">Ajouter Patient</a>
+                    </div>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="/add-person" routerLinkActive="active">AJOUTER PATIENT</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Consultations
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" routerLink="/consultation" routerLinkActive="active">Nouvelle Consultation</a>
+                        <a class="dropdown-item" routerLink="/list-consultation" routerLinkActive="active">Liste de Consultations</a>
+                    </div>
                 </li>
                 </ul>
             </div>

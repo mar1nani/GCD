@@ -1,0 +1,21 @@
+.table-consultation  {
+    text-align: left;
+}
+.table-striped>tbody>tr:nth-of-type(odd)>* {
+    --bs-table-accent-bg: #e3f2fd;
+}
+.text-container {
+    max-width: 400px; /* or any other value that suits your layout */
+    margin: 0 auto; /* centers the container horizontally */
+    text-align: left;
+  }
+  
+  .bordered-text {
+    border: 1px solid black;
+    padding: 5px;
+  }
+
+  .fas.fa-times {
+    margin-right: 5px; /* Add some space between the icon and the text */
+    color: #c02121;
+  }

@@ -46,7 +46,8 @@ export class AddPersonComponent implements OnInit{
       onClose: (dateText: string) => {
         this.personForm.controls['dob'].setValue(dateText);
       }
-  });
+    });
+    
   }
   onSubmit() {  
     if (this.personForm.valid) {
@@ -56,11 +57,14 @@ export class AddPersonComponent implements OnInit{
   createPerson() {
     this.personForm.controls['dob'].setValue(this.personForm.controls['dob'].value);
     this.personService.createPerson(this.personForm.value)
-      .subscribe(data => {
-        console.log(this.personForm.value);
-        this.router.navigate(['/person-list']);
-      }, error => console.log(error));
+      .subscribe({
+        next: data => {
+          this.router.navigate(['/person-list']);
+        },
+        error: error => console.log(error)
+      });
   }
+
   
 
 }

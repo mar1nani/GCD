@@ -1,0 +1,19 @@
+.table-striped>tbody>tr:nth-of-type(odd)>* {
+    --bs-table-accent-bg: #e3f2fd;
+}
+
+.fa.fa-wrench {
+  margin-right: 5px; /* Add some space between the icon and the text */
+  color: #0D6EFD;
+}
+.fa.fa-check-circle {
+  margin-right: 5px; /* Add some space between the icon and the text */
+  color: #28a745;
+}
+
+.fa.fa-list-alt {
+  margin-right: 5px; /* Add some space between the icon and the text */
+  color: #0D6EFD;
+}
+
+

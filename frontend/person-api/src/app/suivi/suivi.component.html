@@ -1,0 +1,112 @@
+<div *ngIf="person">
+  
+<div class="row">
+  <div class="col-4">
+
+    <h2>{{person.name}}</h2>
+
+    <table class="table table-striped table-consultation mt-3 mb-5">
+      <tbody>
+        <ng-container *ngIf="person">
+          <tr *ngIf="person.name">
+            <td>Patient</td>
+            <td><strong>{{person.name}}</strong></td>
+          </tr>
+          <tr *ngIf="person.dob">
+            <td>Date de naissance</td>
+            <td><strong>{{person.dob}}</strong></td>
+          </tr>
+          <tr *ngIf="person.gender">
+            <td>Genre</td>
+            <td><strong>{{person.gender === 'MALE' ? 'Homme' : 'Femme' }}</strong></td>
+          </tr>
+          <tr *ngIf="person.address">
+            <td>Adresse</td>
+            <td><strong>{{person.address}}</strong></td>
+          </tr>
+          <tr *ngIf="person.ville">
+            <td>Ville</td>
+            <td><strong>{{person.ville}}</strong></td>
+          </tr>
+          <tr *ngIf="person.phoneNumber">
+            <td>Téléphone</td>
+            <td><strong>{{person.phoneNumber}}</strong></td>
+          </tr>
+          <tr *ngIf="person.healthState">
+            <td>État de santé</td>
+            <td><strong>{{person.healthState}}</strong></td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+    
+
+  </div>
+
+  <div class="col-8">
+
+    <h3>Consultations:</h3>
+    <ul class="nav nav-tabs">
+      <li *ngFor="let consultation of person.consultations" class="nav-item">
+        <a class="nav-link" [class.active]="activeTab === consultation.id" (click)="showTab(consultation.id, $event)" href="#">
+          {{ consultation.date_consultation | date:'longDate':'':'fr' }}
+        </a>
+      </li>
+    </ul>
+
+    <div class="tab-content mt-4">
+      <div *ngFor="let consultation of person.consultations" class="tab-pane" [class.active]="activeTab === consultation.id" id="{{consultation.id}}">
+        <p>Acte à effectuer: <strong>{{consultation.context}}</strong></p>
+        <p>Nombre de séances: <strong>{{consultation.consultation_count}}</strong></p>
+        <p>Prix: <strong>{{consultation.price | currency:'EUR'}}</strong></p>
+        <p>État: 
+          <span *ngIf="consultation.status; else completed" style="font-weight: bold;">
+            <i class="fa fa-circle" style="color: green"></i> En cours
+          </span>
+          <ng-template #completed>
+            <i class="fa fa-circle" style="color: red"></i> Terminé
+          </ng-template>
+        </p>
+        <div *ngIf="consultation.paiements && consultation.paiements.length > 0">
+          <table class="table table-sm mt-2 mb-3 col-6">
+            <thead>
+              <tr>
+                <th>Date du paiement</th>
+                <th>Paiement effectué</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let payment of consultation.paiements">
+                <td>{{payment.date_paiement | date}}</td>
+                <td>{{payment.paid | currency:'EUR'}}</td>
+                <td>
+                  <a (click)="openConfirmationDialog(payment.id); $event.stopPropagation()">
+                    <i class="fas fa-times"></i> 
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <td style="font-weight: bold;">Montant total réglé</td>
+                <td style="font-weight: bold;">{{getTotalAmount(consultation.paiements) | currency:'EUR'}}</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="mt-4" style="text-align: left; margin-left: 10px; font-weight: bold;">
+            <ng-container *ngIf="consultation.price - getTotalAmount(consultation.paiements) === 0; else notPaid">
+              <div class="text-container">
+                <p class="bordered-text">Le patient a payé la totalité de la consultation</p>
+              </div>
+            </ng-container>
+              <ng-template #notPaid>
+                <span><i class="fa fa-credit-card"></i> Le paiement dû est de {{ consultation.price - getTotalAmount(consultation.paiements) | currency:'EUR'}}</span>
+              </ng-template>
+        </div>
+        </div>
+        <button type="button" class="btn btn-sm btn-outline-primary mt-4" data-toggle="modal" data-target="#addPaymentModal" [attr.data-consultation-id]="consultation.id" (click)="setActiveConsultation(consultation)">Ajouter paiement</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<app-payment-modal [consultationId]="activeConsultation?.id" (paymentAdded)="refreshPayments()"></app-payment-modal>

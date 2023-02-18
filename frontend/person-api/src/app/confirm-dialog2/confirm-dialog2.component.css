@@ -1,0 +1,8 @@
+::ng-deep .mat-mdc-dialog-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 500px;
+    height: auto;
+    transform: translate(-50%, -50%);
+}
