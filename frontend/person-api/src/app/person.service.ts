@@ -11,6 +11,9 @@ import { tap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class PersonService {
+  search(searchText: string) {
+    throw new Error('Method not implemented.');
+  }
   private apiUrl = 'http://localhost:8080/api/person';
   private addPersonUrl = 'http://localhost:8080/api/person';
   private deleteUrl = 'http://localhost:8080/api/person/';

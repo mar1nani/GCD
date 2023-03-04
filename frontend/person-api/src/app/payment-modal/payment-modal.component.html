@@ -16,16 +16,15 @@
               </div>
               <div class="form-group">
                 <label for="paymentDate">Date du paiement:</label>
-                <input type="date" class="form-control" id="paymentDate" name="paymentDate" required [(ngModel)]="paymentDate" [min]="currentDate()">
+                <input type="date" class="form-control" id="paymentDate" name="paymentDate" required [(ngModel)]="paymentDate" [max]="currentDate()">
               </div>
             </form>
           </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-          <button type="button" class="btn btn-primary" (click)="onSubmit()">Enregistrer le paiement</button>
+          <button type="button" class="btn btn-primary" (click)="onSubmit(); resetForm()">Enregistrer le paiement</button>
         </div>
       </div>
     </div>
   </div>
   
- 
