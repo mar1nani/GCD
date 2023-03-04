@@ -26,9 +26,12 @@
             ],
             "styles": [
               "src/styles.css",
-              "node_modules/bootstrap/dist/css/bootstrap.min.css"
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/bootstrap4-toggle/css/bootstrap4-toggle.min.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/bootstrap4-toggle/js/bootstrap4-toggle.min.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -88,10 +91,21 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "node_modules/bootstrap4-toggle/css/bootstrap4-toggle.min.css"
             ],
             "scripts": [
-              "node_modules/jquery/dist/jquery.min.js"
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/bootstrap4-toggle/js/bootstrap4-toggle.min.js"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
             ]
           }
         }
@@ -99,6 +113,9 @@
     }
   },
   "cli": {
-    "analytics": "b330ade5-a7da-4f89-a977-1b7315a14120"
+    "analytics": "b330ade5-a7da-4f89-a977-1b7315a14120",
+    "schematicCollections": [
+      "@angular-eslint/schematics"
+    ]
   }
 }

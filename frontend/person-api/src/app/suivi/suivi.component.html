@@ -39,8 +39,6 @@
         </ng-container>
       </tbody>
     </table>
-    
-
   </div>
 
   <div class="col-8">
@@ -64,9 +62,16 @@
             <i class="fa fa-circle" style="color: green"></i> En cours
           </span>
           <ng-template #completed>
-            <i class="fa fa-circle" style="color: red"></i> Terminé
+            <i class="fa fa-circle" style="color: #c21515"></i> Terminé
           </ng-template>
         </p>
+        <p>
+          <label class="switch">
+            <input type="checkbox" [(ngModel)]="consultation.status" (change)="terminerStatus(consultation)">
+            <span class="slider round"></span>
+          </label>
+        </p>
+
         <div *ngIf="consultation.paiements && consultation.paiements.length > 0">
           <table class="table table-sm mt-2 mb-3 col-6">
             <thead>
@@ -81,14 +86,15 @@
                 <td>{{payment.date_paiement | date}}</td>
                 <td>{{payment.paid | currency:'EUR'}}</td>
                 <td>
-                  <a (click)="openConfirmationDialog(payment.id); $event.stopPropagation()">
-                    <i class="fas fa-times"></i> 
+                  <a style="color: #c21515" (click)="openConfirmationDialog(payment.id, 'paiement'); $event.stopPropagation()">
+                    <mat-icon>delete</mat-icon>
                   </a>
                 </td>
               </tr>
               <tr>
                 <td style="font-weight: bold;">Montant total réglé</td>
                 <td style="font-weight: bold;">{{getTotalAmount(consultation.paiements) | currency:'EUR'}}</td>
+                <td></td>
               </tr>
             </tbody>
           </table>
@@ -98,15 +104,35 @@
                 <p class="bordered-text">Le patient a payé la totalité de la consultation</p>
               </div>
             </ng-container>
-              <ng-template #notPaid>
-                <span><i class="fa fa-credit-card"></i> Le paiement dû est de {{ consultation.price - getTotalAmount(consultation.paiements) | currency:'EUR'}}</span>
-              </ng-template>
+            <ng-template #notPaid>
+              <div class="text-container">
+              <p class="bordered-text">
+                <i class="fa fa-credit-card"></i>
+                  Le paiement dû est de {{ consultation.price - getTotalAmount(consultation.paiements) | currency:'EUR'}}
+              </p>
+              </div>
+            </ng-template>
         </div>
         </div>
-        <button type="button" class="btn btn-sm btn-outline-primary mt-4" data-toggle="modal" data-target="#addPaymentModal" [attr.data-consultation-id]="consultation.id" (click)="setActiveConsultation(consultation)">Ajouter paiement</button>
+        <button type="button"
+                class="btn btn-sm btn-outline-primary mb-4 mr-2"
+                data-toggle="modal"
+                data-target="#addPaymentModal"
+                [attr.data-consultation-id]="consultation.id"
+                (click)="setActiveConsultation(consultation); calculateAmountDue(consultation)"
+                *ngIf="consultation.price !== getTotalAmount(consultation.paiements)" >Ajouter paiement
+        </button>
+        <button type="button"
+                class="btn btn-sm btn-outline-danger mb-4"
+                data-toggle="modal"
+                data-target="#deleteConsultationModal"
+                [attr.data-consultation-id]="consultation.id"
+                (click)="openConfirmationDialog(consultation.id, 'consultation')"
+                *ngIf="getTotalAmount(consultation.paiements) == 0" >Supprimer consultation
+        </button>
       </div>
     </div>
   </div>
 </div>
 </div>
-<app-payment-modal [consultationId]="activeConsultation?.id" (paymentAdded)="refreshPayments()"></app-payment-modal>
+<app-payment-modal [consultationId]="activeConsultation?.id" [amountDue]="amountDue" (paymentAdded)="refreshPayments()"></app-payment-modal>

@@ -13,6 +13,7 @@ declare var $: any;
 export class ListConsultationComponent implements OnInit, AfterViewInit{
   consultations: Consultation[] = [];
   dateSearch: string;
+  patientName: string;
   filteredConsultations: any[];
 
   pageEvent: PageEvent = {
@@ -24,6 +25,7 @@ export class ListConsultationComponent implements OnInit, AfterViewInit{
 
   constructor(private consultationService: ConsultationService, private personService: PersonService) {
     this.dateSearch = '';
+    this.patientName= '';
     this.filteredConsultations = [];
    }
    
@@ -73,13 +75,12 @@ export class ListConsultationComponent implements OnInit, AfterViewInit{
     });
     
   }
-
   filterConsultations() {
     if (this.dateSearch) {
       const selectedDate = new Date(Date.parse(this.dateSearch));
       const formattedSelectedDate = selectedDate.toLocaleDateString("fr", { weekday: "long" }).substr(0,1).toUpperCase() + selectedDate.toLocaleDateString("fr", { weekday: "long" }).substr(1) + ', ' + selectedDate.toLocaleDateString("fr", { month: "long", day: "numeric", year: "numeric" });
       this.filteredConsultations = this.consultations.filter(consultation => {
-        return consultation.date_consultation.toLowerCase().includes(formattedSelectedDate.toLowerCase());
+        return consultation.date_consultation.toLowerCase().includes(formattedSelectedDate.toLowerCase()) ; 
       });
     } else {
       this.filteredConsultations = this.consultations;

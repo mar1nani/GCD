@@ -1,12 +1,12 @@
 <ng-template #personTemplate>
-  <h1>Liste des patients</h1>
+  <h1>Chercher un patient</h1>
     <div class="table-list-person" style="width: 100%;">
-      <div class="input-group" style="width: 300px; margin-bottom: 50px; margin-top: 50px;">
+      <div class="input-group">
         <input type="search" [(ngModel)]="searchTerm" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
         <button type="button" class="btn btn-outline-primary" (click)="search()">search</button>
       </div>
       <div *ngIf="persons.length > 0">
-        <table class="table table-striped" id="datatable" style="width: 780px;">
+        <table class="table table-striped" id="patient-table" style="width: 780px;">
             <thead>
               <tr>
                 <th></th>
@@ -34,14 +34,14 @@
                   <input type="text" class="form-control rounded" [(ngModel)]="person.gender" (blur)="updatePerson(person)" />
                 </td>
                 <td>
-                  <a *ngIf="!person.editMode"  (click)="person.editMode = true; $event.stopPropagation()">
-                    <i class="fa fa-wrench"></i> 
+                  <a *ngIf="!person.editMode" style="color: #0D6EFD"  (click)="person.editMode = true; $event.stopPropagation()">
+                    <mat-icon>edit</mat-icon>
                   </a>
-                  <a *ngIf="person.editMode"  (click)="person.editMode = false; $event.stopPropagation()">
-                    <i class="fa fa-check-circle"></i> 
+                  <a *ngIf="person.editMode" style="color: green"  (click)="person.editMode = false; $event.stopPropagation()">
+                    <mat-icon>check_box</mat-icon>
                   </a>
-                  <a *ngIf="!person.editMode" (click)="openSuivi(person.id); person.editMode = true; $event.stopPropagation()">
-                    <i class="fa fa-list-alt"></i>
+                  <a *ngIf="!person.editMode" style="color: #0D6EFD" (click)="openSuivi(person.id); person.editMode = true; $event.stopPropagation()">
+                    <mat-icon>visibility</mat-icon>
                   </a>
                 </td>
               </tr>

@@ -12,9 +12,7 @@
         </span>
       </div>
     </div>
-  </div>  
-</div>
-
+  </div>    
   <table class="table table-striped mt-3">
     <thead class="">
       <tr>
@@ -36,12 +34,12 @@
               <i class="fa fa-circle" style="color: green"></i> En cours
             </span>
             <ng-template #completed>
-              <i class="fa fa-circle" style="color: red"></i> Terminé
+              <i class="fa fa-circle" style="color: #c21515"></i> Terminé
             </ng-template>
           </td> 
           <td>
-            <a (click)="deleteConsultationById(consultation.id); $event.stopPropagation()">
-              <i class="fas fa-times"></i> 
+            <a style="color: #c21515" (click)="deleteConsultationById(consultation.id); $event.stopPropagation()">
+              <mat-icon>delete</mat-icon> 
             </a>
           </td>       
         </tr>
@@ -71,7 +69,9 @@
     </tbody>
   </table>
   <div class="custom-paginator-container">
-    <mat-paginator [length]="filteredConsultations.length" [pageSize]="10" (page)="pageEvent = $event"></mat-paginator>
+    <mat-paginator [length]="filteredConsultations.length"               
+                   [pageSizeOptions]="[5, 10, 25, 100]"
+                   [pageSize]="10" 
+                   (page)="pageEvent = $event">
+    </mat-paginator>
   </div>
-  
-

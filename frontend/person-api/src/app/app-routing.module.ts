@@ -6,6 +6,7 @@ import { ConsultationComponent } from './consultation/consultation.component';
 import { ListConsultationComponent } from './list-consultation/list-consultation.component';
 import { ConsultationPatientComponent } from './consultation-patient/consultation-patient.component';
 import { SuiviComponent } from './suivi/suivi.component';
+import { MyTestComponent } from './my-test/my-test.component';
 
 
 const routes: Routes = [
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'list-consultation', component: ListConsultationComponent },
   { path: 'consultation-patient', component: ConsultationPatientComponent },
   { path: 'suivi/:id', component: SuiviComponent },
+  { path: 'my-test', component: MyTestComponent}
 
 ];
 

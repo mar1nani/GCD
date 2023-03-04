@@ -16,6 +16,10 @@ export class ConsultationService {
   save(consultation: Consultation): Observable<Consultation> {
     return this.http.post<Consultation>(this.url, consultation);
   }
+  
+  update(consultation:Consultation): Observable<Consultation>{
+    return this.http.put<Consultation>(this.url, consultation);
+  }
 
   findById(id: number): Observable<Consultation> {
     return this.http.get<Consultation>(`${this.url}/${id}`);

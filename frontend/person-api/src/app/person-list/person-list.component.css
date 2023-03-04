@@ -16,4 +16,21 @@
   color: #0D6EFD;
 }
 
+.input-group{
+  width:500px;
+  margin: 50px auto;
+}
 
+.input-group input[type=search]{
+font-size: 25px;
+border-top-right-radius: 0 !important;
+border-bottom-right-radius: 0 !important;
+}
+
+h1{
+  text-align: center;
+}
+
+#patient-table{
+  margin: auto;
+}
